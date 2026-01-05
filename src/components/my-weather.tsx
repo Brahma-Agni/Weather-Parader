@@ -36,10 +36,10 @@ const mockWeatherData: WeatherData = {
 };
 
 const MyWeather: React.FC = () => {
-    const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [weatherData, setWeatherData] = useState<WeatherData | null>(mockWeatherData);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [locationName, setLocationName] = useState('your location');
+    const [locationName, setLocationName] = useState('Default Location');
 
     const handleGetCurrentLocation = () => {
         setLoading(true);
@@ -60,14 +60,16 @@ const MyWeather: React.FC = () => {
             }
         );
     }
-    
-    useEffect(() => {
-        handleGetCurrentLocation();
-    }, []);
 
     return (
         <div className="p-4 md:p-6 max-w-2xl mx-auto">
-             <h1 className="text-3xl font-headline mb-6">Weather for {locationName}</h1>
+             <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-headline">Weather for {locationName}</h1>
+                <Button onClick={handleGetCurrentLocation} variant="outline" size="sm">
+                    <LocateFixed className="mr-2 h-4 w-4" />
+                    Get My Location
+                </Button>
+            </div>
             {loading && (
                 <div className="space-y-4">
                     <Skeleton className="h-48 w-full" />
@@ -75,7 +77,7 @@ const MyWeather: React.FC = () => {
                     <Skeleton className="h-64 w-full" />
                 </div>
             )}
-            {error && (
+            {error && !loading && (
                 <Card>
                     <CardHeader>
                         <CardTitle>Error</CardTitle>
