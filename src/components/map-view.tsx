@@ -16,7 +16,7 @@ const MapView: React.FC<MapViewProps> = ({ waypoints }) => {
       <div className="flex items-center justify-center h-full bg-muted">
         <div className="text-center p-4">
             <h3 className="text-lg font-semibold">Map Unavailable</h3>
-            <p className="text-sm text-muted-foreground">Google Maps API key is not configured. Please add <code className="bg-secondary/50 px-1 py-0.5 rounded">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to your environment variables.</p>
+            <p className="text-sm text-muted-foreground">Google Maps API key is not configured for this environment.</p>
         </div>
       </div>
     );
