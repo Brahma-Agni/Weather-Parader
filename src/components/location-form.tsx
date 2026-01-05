@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Plus, X, MapPin, LocateFixed } from 'lucide-react';
+import { Plus, X, MapPin, LocateFixed, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import type { Waypoint } from '@/lib/types';
 import RiskScoreBadge from './risk-score-badge';
 import { ScrollArea } from './ui/scroll-area';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 
 interface LocationFormProps {
   waypoints: Waypoint[];
@@ -61,6 +62,9 @@ const LocationForm: React.FC<LocationFormProps> = ({ waypoints, onWaypointsChang
           <MapPin className="text-primary" />
           Journey Planner
         </CardTitle>
+        <CardDescription>
+            Plan your multi-stop journey and see weather risks for each leg of the trip.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex gap-2 mb-4">
@@ -79,10 +83,20 @@ const LocationForm: React.FC<LocationFormProps> = ({ waypoints, onWaypointsChang
           <LocateFixed className="mr-2 h-4 w-4" /> Use Current Location
         </Button>
         
-        <h3 className="text-sm font-medium text-muted-foreground mb-2">Waypoints</h3>
+        <h3 className="text-sm font-medium text-muted-foreground mb-2 flex items-center gap-1">
+          Waypoints
+          <Popover>
+            <PopoverTrigger asChild>
+                <Info className="h-3 w-3 cursor-pointer" />
+            </PopoverTrigger>
+            <PopoverContent className="text-xs">
+                Click on a waypoint to see its detailed weather forecast. The badge indicates the AI-calculated risk score.
+            </PopoverContent>
+          </Popover>
+        </h3>
         <ScrollArea className="h-40">
           <div className="space-y-2">
-            {waypoints.map(waypoint => (
+            {waypoints.length > 0 ? waypoints.map(waypoint => (
               <div key={waypoint.id} className="flex items-center gap-2 p-2 rounded-md bg-secondary/50 cursor-pointer hover:bg-accent/20" onClick={() => onLocationSelect(waypoint)}>
                 <div className="flex-grow">
                   <p className="font-semibold">{waypoint.name}</p>
@@ -92,7 +106,9 @@ const LocationForm: React.FC<LocationFormProps> = ({ waypoints, onWaypointsChang
                   <X className="h-4 w-4" />
                 </Button>
               </div>
-            ))}
+            )) : (
+              <div className="text-center text-muted-foreground text-sm py-4">No waypoints added yet.</div>
+            )}
           </div>
         </ScrollArea>
       </CardContent>

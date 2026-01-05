@@ -45,13 +45,16 @@ const ProbabilisticAnalysis: React.FC<ProbabilisticAnalysisProps> = ({ forecastT
             <h4 className="font-semibold text-sm mb-2">Original Forecast:</h4>
             <p className="text-sm p-3 bg-secondary/50 rounded-md text-muted-foreground italic">"{forecastText}"</p>
           </div>
-          <Button onClick={handleAnalysis} disabled={loading}>
-            <Wand2 className="mr-2 h-4 w-4" />
-            {loading ? 'Analyzing...' : 'Generate Probabilities'}
-          </Button>
+          
+          {result === null && !loading && (
+            <Button onClick={handleAnalysis} disabled={loading}>
+              <Wand2 className="mr-2 h-4 w-4" />
+              {loading ? 'Analyzing...' : 'Generate Probabilities'}
+            </Button>
+          )}
 
           {loading && (
-            <div className="space-y-2">
+            <div className="space-y-2 pt-4">
               <Skeleton className="h-4 w-3/4" />
               <Skeleton className="h-4 w-1/2" />
               <Skeleton className="h-4 w-2/3" />
