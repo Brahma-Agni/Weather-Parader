@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Sun, Cloud, CloudRain } from 'lucide-react';
+import { Sun, Cloud, CloudRain, Route } from 'lucide-react';
 import Header from '@/components/header';
 import LocationForm from '@/components/location-form';
-import MapView from '@/components/map-view';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ProbabilisticAnalysis from '@/components/probabilistic-analysis';
 import type { Waypoint, WeatherData } from '@/lib/types';
@@ -12,6 +11,7 @@ import CurrentWeather from './current-weather';
 import HourlyForecast from './hourly-forecast';
 import DailyForecast from './daily-forecast';
 import { ScrollArea } from './ui/scroll-area';
+import JourneyDetails from './journey-details';
 
 // Mock Data
 const mockWeatherData: WeatherData = {
@@ -93,8 +93,8 @@ const WeatherParaderApp = () => {
           </div>
         </ScrollArea>
       </div>
-      <main className="flex-1 h-dvh">
-        <MapView waypoints={waypoints} />
+      <main className="flex-1 h-dvh bg-muted/20">
+        <JourneyDetails waypoints={waypoints} />
       </main>
     </div>
   );
