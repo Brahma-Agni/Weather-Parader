@@ -1,1 +1,5 @@
-// Flows will be imported for their side effects in this file.
+import { config } from 'dotenv';
+config();
+
+import '@/ai/flows/express-forecasts-as-probabilities.ts';
+import '@/ai/flows/generate-weather-risk-score.ts';
