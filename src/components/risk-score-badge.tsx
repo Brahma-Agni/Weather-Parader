@@ -20,7 +20,7 @@ const RiskScoreBadge: React.FC<RiskScoreBadgeProps> = ({ weatherData }) => {
       setLoading(true);
       try {
         const result = await generateWeatherRiskScore({ weatherData });
-        setRisk(result);
+        setRisk({ score: result.riskScore, explanation: result.explanation });
       } catch (error) {
         console.error("Failed to generate risk score:", error);
         setRisk({ score: -1, explanation: "Could not calculate risk score." });
